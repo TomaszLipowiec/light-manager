@@ -10,7 +10,6 @@ class manager : public QObject
 
 public:
     explicit manager(QObject *parent = nullptr);
-    void test();
 signals:
     void onConnect();
     void onDisconnect();
@@ -18,6 +17,7 @@ signals:
     void turnOn(QString id);
     void turnOff(QString id);
     void lampConnected(QString id);
+    void lampDisconnected(QString id);
 public slots:
     void addNewLamp(){
         qDebug() << "AddedNewLamp";
@@ -35,6 +35,7 @@ public slots:
         qDebug() << "Lamp turned off" ;
         emit turnOff("4");
     };
+
 };
 
 #endif // MANAGER_H

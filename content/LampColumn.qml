@@ -14,6 +14,12 @@ Item {
             console.log("eo nn")
             appManager.addNewLamp()
         }
+
+    }
+
+    function switchLight(status,id)
+    {
+        console.log("ConFun! "+id+" "+status)
     }
 
     Connections{
@@ -38,7 +44,9 @@ Item {
         var lampComponent = Qt.createComponent("NewLampLabel.qml")
         var obj = lampComponent.createObject(avaliableLamps)
         obj.labelText = id
-        obj.onClicked = addConnectedLamp(id)
+        // obj.onClicked = addConnectedLamp(id)
+        obj.addLamp.connect(addConnectedLamp)
+
         lightEngine.sf()
     }
 
@@ -46,7 +54,15 @@ Item {
         var lampComponent = Qt.createComponent("RemoteLamp.qml")
         var obj = lampComponent.createObject(connectedLamps)
         obj.labelText = id
-        // Manager.test()
+        obj.switchLight.connect(switchLight)
+
+            //     = function (){
+            // if(obj.switchLight()){
+            //     appManager.turnOn(id)
+            // } else {
+            //     appManager.turnOff(id)
+            // }
+        // }
     }
 
     Text {

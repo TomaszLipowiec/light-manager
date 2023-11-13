@@ -8,6 +8,8 @@ Item {
     property string labelText: "text"
     property color bgColor: "#7d7676"
 
+    signal addLamp(id: string)
+
     Rectangle {
         id: rectangle
         x: 0
@@ -36,14 +38,8 @@ Item {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton
         onClicked: (mouse)=> {
-            if(bgColor == "#7d7676")
-            {
-                bgColor = "#7d7600"
-            }
-            else
-            {
-                bgColor = "#7d7676"
-            }
+            parent.addLamp(parent.labelText)
+            parent.destroy()
         }
     }
 }

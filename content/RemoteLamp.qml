@@ -2,9 +2,18 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 Item {
+    id: remoteLamp
     width: 200
     height: 100
     property string labelText: "labelText"
+    property bool activaton: false
+
+    signal switchLight(status: bool, id: string)
+
+    // function switchLight(){
+    //     console.log("switchLight")
+    //     remoteLamp.activaton = !remoteLamp.activaton
+    // }
 
     Rectangle {
         id: rectangle
@@ -13,7 +22,6 @@ Item {
         width: 200
         height: 100
         color: "#00593737"
-
     }
 
     Label {
@@ -29,9 +37,13 @@ Item {
     }
 
     Switch {
-        id: switch1
+        id: lightSwitch
         x: 42
         y: 42
-        text: qsTr("on/off")
+        checked: false
+        onCheckedChanged: {
+            parent.activaton = !parent.activaton
+            parent.switchLight(parent.activaton, parent.labelText)
+        }
     }
 }
