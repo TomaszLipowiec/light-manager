@@ -18,13 +18,6 @@ int main(int argc, char *argv[])
     set_qt_environment();
 
     QGuiApplication app(argc, argv);
-
-    // QQuickView uiLamps(QUrl::fromLocalFile("qml/content/LampColumn.qml"));
-    // QObject *lamps = uiLamps.rootObject();
-
-    // QObject::connect(lamps, SIGNAL(addNewLamp()), &manager, SLOT(addNewLamp()));
-    // QObject::connect(lamps, SIGNAL(addConnected()), &manager, SLOT(addNewLamp()));
-
     QQmlApplicationEngine engine;
 
     manager *appManager = new class manager(&app);
@@ -43,8 +36,6 @@ int main(int argc, char *argv[])
     engine.addImportPath(":/");
 
     engine.load(url);
-
-    //QObject::connect(engine.rootObjects(),SIGNAL(addNewLamp(int)), appManager, SLOT(addConnected(int)));
 
     if (engine.rootObjects().isEmpty()) {
         return -1;

@@ -19,14 +19,20 @@ Item {
 
     function switchLight(status,id)
     {
-        console.log("ConFun! "+id+" "+status)
+        if(status){
+            appManager.turnLampOn(id)
+        }
+        else{
+            appManager.turnLampOff(id);
+        }
     }
 
     Connections{
         target: appManager
         function onNewLampAdded(id)
         {
-            console.log("I got signal with id "+id)
+            console.log("I got signal with id "+id);
+            addLampLabel(id);
         }
 
         function onLampConnected()
@@ -47,7 +53,7 @@ Item {
         // obj.onClicked = addConnectedLamp(id)
         obj.addLamp.connect(addConnectedLamp)
 
-        lightEngine.sf()
+        // lightEngine.sf()
     }
 
     function addConnectedLamp(id){
