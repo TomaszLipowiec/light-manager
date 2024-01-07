@@ -29,15 +29,27 @@ Item {
 
     Connections{
         target: appManager
-        function onNewLampAdded(id)
+        function onNewLampAdded(id, addr)
         {
             console.log("I got signal with id "+id);
-            addLampLabel(id);
+            addLampLabel(id, addr);
         }
 
-        function onLampConnected()
+        function onLampConnected(id, addr)
         {
-            console.log("I got lamp connected with id "+id)
+            console.log("I got lamp connected with id "+id+"  "+adrr);
+            //addConnectedLamp(id);
+
+        }
+
+        function onLampGone(id)
+        {
+            for(let i=0; i<connectedLamps.children.length; i++){
+                if(connectedLamps.children[i].labelText == id)
+                {
+                    connectedLamps.children[i].destroy();
+                }
+            }
         }
     }
 
@@ -46,20 +58,20 @@ Item {
     signal turnOn(id: int)
     signal trunOff(id: int)
 
-    function addLampLabel(id){
+    function addLampLabel(id, addr){
         var lampComponent = Qt.createComponent("NewLampLabel.qml")
         var obj = lampComponent.createObject(avaliableLamps)
         obj.labelText = id
+        obj.clientAddr = addr
         // obj.onClicked = addConnectedLamp(id)
         obj.addLamp.connect(addConnectedLamp)
-
-        // lightEngine.sf()
     }
 
-    function addConnectedLamp(id){
+    function addConnectedLamp(id, addr){
         var lampComponent = Qt.createComponent("RemoteLamp.qml")
         var obj = lampComponent.createObject(connectedLamps)
         obj.labelText = id
+        appManager.addNewLamp(id, addr);
         obj.switchLight.connect(switchLight)
 
             //     = function (){
@@ -108,7 +120,7 @@ Item {
         x: 143
         y: 256
         text: qsTr("Add")
-        onClicked: addLampLabel("New")
+        onClicked: addLampLabel("New", ".0.0.0.0")
     }
 
     Button {
@@ -116,7 +128,7 @@ Item {
         x: 818
         y: 127
         text: qsTr("add")
-        onClicked: addConnectedLamp("Conn")
+        onClicked: addConnectedLamp("Conn", )
     }
 
     Text {

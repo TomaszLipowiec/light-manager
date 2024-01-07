@@ -7,8 +7,9 @@ Item {
     height: 45
     property string labelText: "text"
     property color bgColor: "#7d7676"
+    property string clientAddr: "0.0.0.0"
 
-    signal addLamp(id: string)
+    signal addLamp(id: string, addr: string)
 
     Rectangle {
         id: rectangle
@@ -38,7 +39,7 @@ Item {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton
         onClicked: (mouse)=> {
-            parent.addLamp(parent.labelText)
+            parent.addLamp(parent.labelText, parent.clientAddr)
             parent.destroy()
         }
     }
