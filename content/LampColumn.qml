@@ -37,7 +37,7 @@ Item {
 
         function onLampConnected(id, addr)
         {
-            console.log("I got lamp connected with id "+id+"  "+adrr);
+            //console.log("I got lamp connected with id "+id+"  "+adrr);
             //addConnectedLamp(id);
 
         }
@@ -72,15 +72,7 @@ Item {
         var obj = lampComponent.createObject(connectedLamps)
         obj.labelText = id
         appManager.addNewLamp(id, addr);
-        obj.switchLight.connect(switchLight)
-
-            //     = function (){
-            // if(obj.switchLight()){
-            //     appManager.turnOn(id)
-            // } else {
-            //     appManager.turnOff(id)
-            // }
-        // }
+        obj.switchLight.connect(switchLight);
     }
 
     Text {
@@ -113,22 +105,6 @@ Item {
         height: 400
         spacing: 15
         leftPadding: 25
-    }
-
-    Button {
-        id: button
-        x: 143
-        y: 256
-        text: qsTr("Add")
-        onClicked: addLampLabel("New", ".0.0.0.0")
-    }
-
-    Button {
-        id: button1
-        x: 818
-        y: 127
-        text: qsTr("add")
-        onClicked: addConnectedLamp("Conn", )
     }
 
     Text {
